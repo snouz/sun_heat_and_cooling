@@ -14,7 +14,7 @@ local item_sounds = require("__base__.prototypes.item_sounds")
 local item_tints = require("__base__.prototypes.item-tints")
 local simulations = require("__space-age__.prototypes.factoriopedia-simulations")
 
-
+if mods["Moshine"] then
 data:extend
 {
   {
@@ -25,10 +25,10 @@ data:extend
     factoriopedia_simulation = simulations.factoriopedia_lightning,
     damage = {amount = 1, type = "fire"},
     energy = "100MJ",
-    time_to_damage = 2,
-    effect_duration = 36,
-    source_offset = {0, -25},
-    source_variance = {30, 6},
+    time_to_damage = 1,
+    effect_duration = 30,
+    --source_offset = {0, -25},
+    --source_variance = {30, 6},
     --[[sound =
     {
       variations = sound_variations_with_volume_variations("__space-age__/sound/explosions/lightning-effect", 5, 0.25, 0.8),
@@ -214,16 +214,16 @@ data:extend
     type = "lightning-attractor",
     name = "sun_heat_cooler_1",
     icon = icons .. "sun_heat_cooler_1.png",
-    efficiency = 0.1,
+    --efficiency = 0.1,
     range_elongation = 21.0,
-    energy_source =
+    --[[energy_source =
     {
       type = "electric",
       buffer_capacity = "500MJ",
       usage_priority = "primary-output",
       output_flow_limit = "500MJ",
       drain = "2.5MJ"
-    },
+    },]]
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.1, result = "sun_heat_cooler_1"},
     max_health = 200,
@@ -240,35 +240,28 @@ data:extend
     },
     collision_box = {{-1.15, -1.15}, {1.15, 1.15}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
-    lightning_strike_offset = {0, 0},
+    lightning_strike_offset = {0, -1},
     damaged_trigger_effect = hit_effects.entity({{-1.2, -1.2},{1.2, 1.2}}),
     --drawing_box_vertical_extension = 4.3,
     open_sound = sounds.electric_network_open,
     close_sound = sounds.electric_network_close,
     working_sound =
     {
+
       main_sounds =
       {
         {
+          fade_in_ticks = 120,
+          fade_out_ticks = 280,
           sound =
           {
             filename = sound .. "sun_heat_cooler_1-charge.ogg",
-            volume = 0.5,
+            volume = 1,
             audible_distance_modifier = 0.5,
           },
-          match_volume_to_activity = true,
-          activity_to_volume_modifiers = {offset = 2, inverted = true},
+          --match_volume_to_activity = true,
+          --activity_to_volume_modifiers = {offset = 2, inverted = true},
         },
-        {
-          sound =
-          {
-            filename = sound .. "sun_heat_cooler_1-discharge.ogg",
-            volume = 0.5,
-            audible_distance_modifier = 0.5,
-          },
-          match_volume_to_activity = true,
-          activity_to_volume_modifiers = {offset = 1},
-        }
       },
       max_sounds_per_prototype = 3,
     },
@@ -277,24 +270,20 @@ data:extend
         layers = {
           {
             filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1.png",
-            width = 108,
-            height = 352,
-            shift = util.by_pixel( -2.0, -62.0),
+            width = 320,
+            height = 320,
             line_length = 1,
             priority = "high",
             scale = 0.5,
-            repeat_count = repeat_count
           },
           {
             filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-shadow.png",
-            width = 768,
-            height = 742,
-            shift = util.by_pixel( 0.0, -6.5),
+            width = 320,
+            height = 320,
             line_length = 1,
             priority = "high",
             draw_as_shadow = true,
             scale = 0.5,
-            repeat_count = repeat_count
           }
         }
       },
@@ -303,20 +292,43 @@ data:extend
         {
           {
             filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-charge.png",
-            width = 72,
-            height = 330,
-            shift = util.by_pixel( -1.5, -67.5),
+            run_mode = "forward",
+            width = 320,
+            height = 320,
+            line_length = 4,
+            frame_count = 8,
+            priority = "high",
+            --blend_mode = "additive",
+            scale = 0.5,
+            --draw_as_glow = true,
+            animation_speed = 1/10,
+          }
+        }
+      },
+      charge_animation_is_looped = true,
+      charge_cooldown = 10,
+      --[[
+      charge_animation = {
+        layers =
+        {
+          {
+            filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-charge.png",
+            run_mode = "forward-then-backward",
+            width = 320,
+            height = 320,
             line_length = 8,
             priority = "high",
             blend_mode = "additive",
             scale = 0.5,
-            frame_count = 24,
+            frame_count = 16,
             draw_as_glow = true,
+            animation_speed = 1/10,
           }
         }
       },
-      charge_animation_is_looped = false,
-      charge_cooldown = 30,
+      charge_animation_is_looped = true,
+      charge_cooldown = 0,
+      
       discharge_animation = {
         layers = {
           {
@@ -333,7 +345,8 @@ data:extend
           }
         }
       },
-      discharge_cooldown = 60
+      ]]
+      --discharge_cooldown = 60
     },
     water_reflection =
     {
@@ -341,7 +354,7 @@ data:extend
       {
         filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-reflection.png",
         priority = "extra-high",
-        width = 11,
+        width = 36,
         height = 30,
         shift = util.by_pixel(0, 50),
         variation_count = 1,
@@ -366,9 +379,8 @@ data:extend
     expires = false,
     animation = {
       filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-remnants.png",
-      width = 512,
-      height = 426,
-      shift = util.by_pixel( 1.0, -21.0),
+      width = 320,
+      height = 320,
       line_length = 1,
       direction_count = 1,
       scale = 0.5
@@ -378,7 +390,7 @@ data:extend
   {
     type = "item",
     name = "sun_heat_cooler_1",
-    icon = "__space-age__/graphics/icons/lightning-rod.png",
+    icon = icons .. "sun_heat_cooler_1.png",
     subgroup = "environmental-protection",
     order = "e[sun_heat_cooler_1]",
     inventory_move_sound = item_sounds.electric_small_inventory_move,
@@ -421,7 +433,7 @@ data:extend
     prerequisites = {"moshine-tech-silicon-carbide"},
     unit =
     {
-      count = 500,
+      count = 150,
       ingredients =
       {
         {"automation-science-pack", 1},
@@ -429,7 +441,8 @@ data:extend
         {"chemical-science-pack", 1},
         {"space-science-pack", 1}
       },
-      time = 60
+      time = 30
     }
   },
 }
+end

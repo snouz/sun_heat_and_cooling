@@ -16,7 +16,7 @@ local exemptlist = {
 if data.raw.planet["moshine"] then
   data.raw.planet["moshine"].lightning_properties =
   {
-    lightnings_per_chunk_per_tick = 1 / 20, --cca once per chunk every 10 seconds (600 ticks)
+    lightnings_per_chunk_per_tick = 1 / 15,
     search_radius = 10.0,
     lightning_types = {"sun_heat"},
     lightning_multiplier_at_day = 1,
@@ -32,14 +32,14 @@ if data.raw.planet["moshine"] then
     priority_rules =
     {
       {
+        type = "id",
+        string = "sun_heat_cooler_1",
+        priority_bonus = 10000,
+      },
+      {
         type = "impact-soundset",
         string = "metal",
         priority_bonus = 1
-      },
-      {
-        type = "id",
-        string = "ai-trainer",
-        priority_bonus = 1000,
       },
     },
     exemption_rules = 
