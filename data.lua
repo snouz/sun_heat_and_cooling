@@ -1,26 +1,17 @@
-require ("prototypes.technology")
-require ("prototypes.items")
-require ("prototypes.recipes")
-require ("prototypes.entity")
-
-require ("sound-util")
-
-require ("prototypes.compatibility")
+local graphics = "__sun_heat_and_cooling__/graphics/"
+local sound = "__sun_heat_and_cooling__/sound/"
+local icons = "__sun_heat_and_cooling__/graphics/icons/"
+local technology = "__sun_heat_and_cooling__/graphics/technology/"
+local entity = "__sun_heat_and_cooling__/graphics/entity/"
 
 
 
-
+--require ("sound-util")
 local simulations = require("__space-age__.prototypes.factoriopedia-simulations")
 local sounds = require("__base__.prototypes.entity.sounds")
-
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
-
 local item_sounds = require("__base__.prototypes.item_sounds")
 local item_tints = require("__base__.prototypes.item-tints")
-
-
-
-local graphics = "__sun_heat_and_cooling__/graphics/"
 local simulations = require("__space-age__.prototypes.factoriopedia-simulations")
 
 
@@ -29,7 +20,7 @@ data:extend
   {
     type = "lightning",
     name = "sun_heat",
-    icon = "__space-age__/graphics/icons/lightning.png",
+    icon = icons .. "sun_heat.png",
     subgroup = "obstacles",
     factoriopedia_simulation = simulations.factoriopedia_lightning,
     damage = {amount = 1, type = "fire"},
@@ -222,8 +213,9 @@ data:extend
   {
     type = "lightning-attractor",
     name = "sun_heat_cooler_1",
+    icon = icons .. "sun_heat_cooler_1.png",
     efficiency = 0.1,
-    range_elongation = 20.0,
+    range_elongation = 21.0,
     energy_source =
     {
       type = "electric",
@@ -232,12 +224,11 @@ data:extend
       output_flow_limit = "500MJ",
       drain = "2.5MJ"
     },
-    icon = "__space-age__/graphics/icons/lightning-rod.png",
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.1, result = "sun_heat_cooler_1"},
-    max_health = 100,
-    corpse = "lightning-rod-remnants",
-    dying_explosion = "medium-electric-pole-explosion",
+    max_health = 200,
+    corpse = "sun_heat_cooler_1-remnants",
+    dying_explosion = "assembling-machine-1-explosion",
     factoriopedia_simulation = simulations.factoriopedia_lightning_rod,
     surface_conditions = {{ property = "pressure", min = 701, max = 701}},
     resistances =
@@ -250,7 +241,7 @@ data:extend
     collision_box = {{-1.15, -1.15}, {1.15, 1.15}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     lightning_strike_offset = {0, 0},
-    damaged_trigger_effect = hit_effects.entity({{-0.2, -2.2},{0.2, 0.2}}),
+    damaged_trigger_effect = hit_effects.entity({{-1.2, -1.2},{1.2, 1.2}}),
     --drawing_box_vertical_extension = 4.3,
     open_sound = sounds.electric_network_open,
     close_sound = sounds.electric_network_close,
@@ -261,7 +252,7 @@ data:extend
         {
           sound =
           {
-            filename = "__space-age__/sound/entity/lightning-attractor/lightning-attractor-charge.ogg",
+            filename = sound .. "sun_heat_cooler_1-charge.ogg",
             volume = 0.5,
             audible_distance_modifier = 0.5,
           },
@@ -271,7 +262,7 @@ data:extend
         {
           sound =
           {
-            filename = "__space-age__/sound/entity/lightning-attractor/lightning-attractor-discharge.ogg",
+            filename = sound .. "sun_heat_cooler_1-discharge.ogg",
             volume = 0.5,
             audible_distance_modifier = 0.5,
           },
@@ -281,12 +272,74 @@ data:extend
       },
       max_sounds_per_prototype = 3,
     },
-    chargable_graphics = require("__space-age__.prototypes.entity.lightning-rod-graphics"),
+    chargable_graphics = {
+      picture = {
+        layers = {
+          {
+            filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1.png",
+            width = 108,
+            height = 352,
+            shift = util.by_pixel( -2.0, -62.0),
+            line_length = 1,
+            priority = "high",
+            scale = 0.5,
+            repeat_count = repeat_count
+          },
+          {
+            filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-shadow.png",
+            width = 768,
+            height = 742,
+            shift = util.by_pixel( 0.0, -6.5),
+            line_length = 1,
+            priority = "high",
+            draw_as_shadow = true,
+            scale = 0.5,
+            repeat_count = repeat_count
+          }
+        }
+      },
+      charge_animation = {
+        layers =
+        {
+          {
+            filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-charge.png",
+            width = 72,
+            height = 330,
+            shift = util.by_pixel( -1.5, -67.5),
+            line_length = 8,
+            priority = "high",
+            blend_mode = "additive",
+            scale = 0.5,
+            frame_count = 24,
+            draw_as_glow = true,
+          }
+        }
+      },
+      charge_animation_is_looped = false,
+      charge_cooldown = 30,
+      discharge_animation = {
+        layers = {
+          {
+            filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-discharge.png",
+            width = 62,
+            height = 314,
+            shift = util.by_pixel( 0.0, -69.5),
+            line_length = 8,
+            priority = "high",
+            blend_mode = "additive",
+            scale = 0.5,
+            frame_count = 24,
+            draw_as_glow = true,
+          }
+        }
+      },
+      discharge_cooldown = 60
+    },
     water_reflection =
     {
       pictures =
       {
-        filename = "__space-age__/graphics/entity/lightning-rod/lightning-rod-reflection.png",
+        filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-reflection.png",
         priority = "extra-high",
         width = 11,
         height = 30,
@@ -300,11 +353,34 @@ data:extend
   },
 
   {
+    type = "corpse",
+    name = "sun_heat_cooler_1-remnants",
+    icon = icons .. "sun_heat_cooler_1.png",
+    flags = {"placeable-neutral", "not-on-map"},
+    hidden_in_factoriopedia = true,
+    subgroup = "environmental-protection-remnants",
+    order = "a-k-b",
+    selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
+    tile_width = 1,
+    tile_height = 1,
+    expires = false,
+    animation = {
+      filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-remnants.png",
+      width = 512,
+      height = 426,
+      shift = util.by_pixel( 1.0, -21.0),
+      line_length = 1,
+      direction_count = 1,
+      scale = 0.5
+    }
+  },
+
+  {
     type = "item",
     name = "sun_heat_cooler_1",
     icon = "__space-age__/graphics/icons/lightning-rod.png",
     subgroup = "environmental-protection",
-    order = "a[lightning-rod]",
+    order = "e[sun_heat_cooler_1]",
     inventory_move_sound = item_sounds.electric_small_inventory_move,
     pick_sound = item_sounds.electric_small_inventory_pickup,
     drop_sound = item_sounds.electric_small_inventory_move,
@@ -317,7 +393,7 @@ data:extend
   {
     type = "recipe",
     name = "sun_heat_cooler_1",
-    categories = {"electromagnetics", "crafting"},
+    categories = {"crafting", "electromagnetics"},
     surface_conditions = {{ property = "pressure", min = 701, max = 701}},
     energy_required = 5,
     ingredients =
@@ -332,7 +408,7 @@ data:extend
   {
     type = "technology",
     name = "sun_heat_cooler_1_tech",
-    icon = "__space-age__/graphics/technology/space-platform-thruster.png",
+    icon = technology .. "sun_heat_cooler_1_tech.png",
     icon_size = 256,
     essential = true,
     effects =
