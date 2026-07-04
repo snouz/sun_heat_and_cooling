@@ -1,4 +1,26 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 2026-06-
+  Changes:
+    - Added a startup setting to set the heat frequency
+  Balancing:
+    - damage_per_chunk_per_tick 1/10 -> 1/20 (by default)
+    - Made non-electric turrets immune
+  Graphics:
+    - Made the heat effect more visible
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 2026-06-03
+  Changes:
+    - Added achievement
+  Graphics:
+    - Made the heat graphics much more realistic
+  Balancing:
+    - Changed cooler recipe to silicon and pump
+    - Increased the sun damage frequency by 50% (based on feedback)
+    - Made splitters, inserters, characters and bots subject to heat
+    - Made chemical plant immune to heat
+---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 2026-06-02
   Info:

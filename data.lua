@@ -100,12 +100,12 @@ data:extend
           },]]
           {
             type = "create-trivial-smoke",
-            smoke_name = "fire-smoke-without-glow",
-            offsets = {{0, -0.5}},
-            offset_deviation = {{-0.5, -0.5}, {0.5, 0.5}},
-            speed = {0, -0.5},
-            initial_height = 0.5,
-            speed_from_center = 0.008,
+            smoke_name = "sun_heat_smoke",
+            offsets = {{0, 0}},
+            offset_deviation = {{-0.9, -0.7}, {0.9, 0.7}},
+            speed = {0, 0},
+            initial_height = 0,
+            speed_from_center = 0.08,
             speed_from_center_deviation = 0.015,
             only_when_visible = true
           }
@@ -208,6 +208,45 @@ data:extend
   },
 
 
+  {
+    type = "trivial-smoke",
+    name = "sun_heat_smoke",
+    duration = 1200,
+    fade_in_duration = 600,
+    fade_away_duration = 600,
+    glow_fade_away_duration = 600,
+    spread_duration = 1200,
+    start_scale = 0.62,
+    end_scale = 0.75,
+    color = util.premul_color{1,1,1, 0.20},
+    cyclic = true,
+    affected_by_wind = false,
+    animation = {
+      filename = entity .. "heat-smoke/nothing.png",
+      flags = { "smoke" },
+      --blend_mode = "additive",
+      line_length = 8,
+      width = 1,
+      height = 1,
+      frame_count = 60,
+      --shift = {0, 0.5},
+      priority = "high",
+      animation_speed = 0.15,
+    },
+    glow_animation = {
+      filename = entity .. "heat-smoke/heat-smoke-glow.png",
+      flags = { "smoke" },
+      blend_mode = "additive",
+      line_length = 8,
+      width = 253,
+      height = 210,
+      frame_count = 60,
+      --shift = {-0.265625, -0.09375},
+      priority = "high",
+      animation_speed = 0.15,
+    },
+    movement_slow_down_factor = 0.1,
+  },
 
 
   {
@@ -410,8 +449,8 @@ data:extend
     energy_required = 5,
     ingredients =
     {
-      {type = "item", name = "silicon-carbide", amount = 2},
-      {type = "item", name = "engine-unit", amount = 1},
+      {type = "item", name = "silicon", amount = 3},
+      {type = "item", name = "pump", amount = 1},
     },
     results = {{type="item", name="sun_heat_cooler_1", amount=1}},
     enabled = false
@@ -443,6 +482,16 @@ data:extend
       },
       time = 30
     }
+  },
+
+
+  {
+    type = "build-entity-achievement",
+    name = "moshine_build_sun_cooler",
+    order = "a[progress]-a[automate-this]",
+    to_build = "sun_heat_cooler_1",
+    icon = technology .. "moshine_build_sun_cooler.png",
+    icon_size = 128
   },
 }
 end

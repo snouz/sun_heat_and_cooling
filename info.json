@@ -4,7 +4,7 @@
   "description": "Sun heat mechanic and cooling building to protect from it. Made for Moshine.",
   "author": "snouz",
   "homepage": "https://github.com/snouz/sun_heat_and_cooling",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "factorio_version": "2.1",
   "dependencies": [
     "base",
