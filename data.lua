@@ -218,7 +218,7 @@ data:extend
     spread_duration = 1200,
     start_scale = 0.62,
     end_scale = 0.75,
-    color = util.premul_color{1,1,1, 0.20},
+    color = util.premul_color{1,1,1, 0.25},
     cyclic = true,
     affected_by_wind = false,
     animation = {

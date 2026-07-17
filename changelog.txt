@@ -1,6 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.1
+Date: 2026-07-16
+  Balancing:
+    - Lowered search radius but increase frequency
+  Graphics:
+    - Made the heat effect more visible
+---------------------------------------------------------------------------------------------------
 Version: 1.2.0
-Date: 2026-06-
+Date: 2026-06-04
   Changes:
     - Added a startup setting to set the heat frequency
   Balancing:

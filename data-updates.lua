@@ -25,8 +25,8 @@ if data.raw.planet["moshine"] then
   
   data.raw.planet["moshine"].lightning_properties =
   {
-    lightnings_per_chunk_per_tick = freq / 2000,
-    search_radius = 10.0,
+    lightnings_per_chunk_per_tick = freq / 300,
+    search_radius = 3.0,
     lightning_types = {"sun_heat"},
     lightning_multiplier_at_day = 1,
     lightning_multiplier_at_night = 0,
