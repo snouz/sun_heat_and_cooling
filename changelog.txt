@@ -1,8 +1,23 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.3.3
+Date: 2026-08-24
+  Changes:
+    - Made opticalfiber-storage-tank not immune
+  Graphics
+    - Sun warning icon made more visible with "no power" also active
+---------------------------------------------------------------------------------------------------
+Version: 1.3.2
+Date: 2026-08-20
+  Sound:
+    - Custom sound for cooler 2's placement
+---------------------------------------------------------------------------------------------------
 Version: 1.3.1
-Date: 2026-08-17
+Date: 2026-08-19
   Balancing:
     - "Processing equation" doesn't take damage anymore
+  Graphics:
+    - Added steam and better ground pattern to cooler 1
+    - Added huge luminous ground pattern to cooler 2
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.0
 Date: 2026-08-14

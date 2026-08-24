@@ -154,7 +154,33 @@ data:extend({
     },
     movement_slow_down_factor = 0.1,
   },
-  --cooler 2 smoke
+  --cooler smokes
+  {
+    type = "trivial-smoke",
+    name = "sun-heat-cooler-smoke-small",
+    animation =
+    {
+      width = 152,
+      height = 120,
+      line_length = 5,
+      frame_count = 60,
+      shift = {0, 0},
+      priority = "high",
+      animation_speed = 0.1,
+      filename = entity .. "sun_heat_cooler_2/smoke.png", --"__base__/graphics/entity/smoke/smoke.png",
+      flags = { "smoke" },
+      --scale = 1.5,
+    },
+    cyclic = true,
+    duration = 240,
+    fade_in_duration = 120,
+    fade_away_duration = 120,
+    start_scale = 0.3,
+    end_scale = 1.2,
+    color = {1, 1, 1, 0.2},
+    affected_by_wind = false,
+    movement_slow_down_factor = 0.1
+  },
   {
     type = "trivial-smoke",
     name = "sun-heat-cooler-smoke",
@@ -183,13 +209,41 @@ data:extend({
   },
   {
     type = "particle-source",
+    name = "sun-heat-cooler-particle-source-small",
+    flags = {"not-on-map", "not-blueprintable", "not-deconstructable", "not-selectable-in-game"},
+    collision_mask = {layers = {}},
+    time_to_live = 4294967295,
+    time_before_start = 50,
+    height = 0,
+    height_deviation = 0,
+    vertical_speed = -0.02,
+    vertical_speed_deviation = 0.01,
+    horizontal_speed = 0,
+    horizontal_speed_deviation = 0.01,
+    smoke =
+    {
+      {
+        name = "sun-heat-cooler-smoke-small",
+        frequency = 0.008,
+        position = {0, 0},
+        deviation = {0, 0},
+        height = 0,
+        height_deviation = 0,
+        starting_vertical_speed = 0.03,
+        starting_vertical_speed_deviation = 0.01,
+        vertical_speed_slowdown = 0.2
+      }
+    },
+  },
+  {
+    type = "particle-source",
     name = "sun-heat-cooler-particle-source",
     flags = {"not-on-map", "not-blueprintable", "not-deconstructable", "not-selectable-in-game"},
     collision_mask = {layers = {}},
     time_to_live = 4294967295,
     time_before_start = 100,
     height = 0.5,
-    height_deviation = 0.01,
+    height_deviation = 0,
     vertical_speed = -0.02,
     vertical_speed_deviation = 0.01,
     horizontal_speed = 0,
@@ -199,8 +253,8 @@ data:extend({
       {
         name = "sun-heat-cooler-smoke",
         frequency = 0.015,
-        position = {-1.3, 0},
-        deviation = {0.3, 0.3},
+        position = {-0.5, 0},
+        deviation = {0, 0},
         height = 0,
         height_deviation = 0,
         starting_vertical_speed = -0.01,
@@ -209,20 +263,82 @@ data:extend({
       }
     },
   },
-
-})
-
-
-data:extend({
+  {
+    -- it's actually green
+    name = "sun_heat_cooler_1_cables_on_the_ground",
+    type = "simple-entity",
+    order = "z",
+    hidden = true,
+    flags = {"not-selectable-in-game"},
+    --collision_box = {{-0.01, -0.01}, {0.01, 0.01}},
+    collision_mask = {layers = {}},
+    lower_render_layer = "decals",
+    lower_pictures =
+    {
+      {
+        filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-cables.png",
+        width = 640,
+        height = 640,
+        line_length = 1,
+        priority = "low",
+        scale = 0.5,
+      },
+    },
+  },
+  {
+    -- it's actually green
+    name = "sun_heat_cooler_2_cables_on_the_ground",
+    type = "simple-entity",
+    order = "z",
+    hidden = true,
+    flags = {"not-selectable-in-game"},
+    --collision_box = {{-0.01, -0.01}, {0.01, 0.01}},
+    collision_mask = {layers = {}},
+    lower_render_layer = "ground-patch",
+    --render_layer = "elevated-higher-object",
+    lower_pictures =
+    --pictures =
+    {
+      {
+        filename = entity .. "sun_heat_cooler_2/sun_heat_cooler_2-shield.png",
+        --width = 2048,
+        --height = 2048,
+        width = 3196,
+        height = 3196,
+        scale = 1,
+        draw_as_glow = true,
+        blend_mode = "additive",
+        --apply_special_effect = true,
+        --tint = {1,1,1,0.2},
+      },
+      --[[
+      {
+        filename = entity .. "sun_heat_cooler_2/sun_heat_cooler_2-cables.png",
+        width = 640,
+        height = 640,
+        scale = 0.5,
+      },
+      ]]
+    },
+    --[[render_layer = "elevated-higher-object",
+    pictures =
+    {
+      {
+        filename = entity .. "sun_heat_cooler_2/sun_heat_cooler_2-shield.png",
+        width = 4096,
+        height = 4096,
+        scale = 0.5,
+        draw_as_glow = true,
+        blend_mode = "additive",
+      },
+    },]]
+  },
 
 --    ██   ██ ███████  █████  ████████          █████  ████████ ████████ ██████   █████   ██████ ████████  ██████  ██████           ██ 
 --    ██   ██ ██      ██   ██    ██            ██   ██    ██       ██    ██   ██ ██   ██ ██         ██    ██    ██ ██   ██         ███ 
 --    ███████ █████   ███████    ██            ███████    ██       ██    ██████  ███████ ██         ██    ██    ██ ██████           ██ 
 --    ██   ██ ██      ██   ██    ██            ██   ██    ██       ██    ██   ██ ██   ██ ██         ██    ██    ██ ██   ██          ██ 
 --    ██   ██ ███████ ██   ██    ██    ███████ ██   ██    ██       ██    ██   ██ ██   ██  ██████    ██     ██████  ██   ██ ███████  ██ 
-
-
-
 
 {
     type = "lightning-attractor",
@@ -286,7 +402,7 @@ data:extend({
             priority = "high",
             draw_as_shadow = true,
             scale = 0.5,
-          },
+          },--[[
           {
             filename = entity .. "sun_heat_cooler_1/sun_heat_cooler_1-cables.png",
             width = 640,
@@ -295,7 +411,7 @@ data:extend({
             priority = "low",
             draw_as_shadow = true,
             scale = 0.5,
-          },
+          },]]
         }
       },
       charge_animation = nil,
@@ -374,7 +490,12 @@ data:extend({
     damaged_trigger_effect = hit_effects.entity({{-1.2, -1.2},{1.2, 1.2}}),
     open_sound = sounds.metal_small_open,
     close_sound = sounds.metal_small_close,
-    working_sound =
+    build_sound = {
+      filename = sound .. "cooler2_placing.ogg",
+      volume = 0.9,
+      --audible_distance_modifier = 0.5,
+    },
+    working_sound = 
     {
       main_sounds =
       {
@@ -385,7 +506,7 @@ data:extend({
           {
             filename = sound .. "sun_heat_cooler_2-charge.ogg",
             volume = 0.3,
-            audible_distance_modifier = 0.5,
+            audible_distance_modifier = 400,
           },
         },
       },
@@ -473,8 +594,8 @@ data:extend({
     type = "item",
     name = "sun_heat_cooler_1",
     icon = icons .. "sun_heat_cooler_1.png",
-    subgroup = "environmental-protection",
-    order = "e[sun_heat_cooler_1]",
+    subgroup = "moshine-production-machine",
+    order = "ffi",
     inventory_move_sound = item_sounds.electric_small_inventory_move,
     pick_sound = item_sounds.electric_small_inventory_pickup,
     drop_sound = item_sounds.electric_small_inventory_move,
@@ -487,8 +608,8 @@ data:extend({
     type = "item",
     name = "sun_heat_cooler_2",
     icon = icons .. "sun_heat_cooler_2.png",
-    subgroup = "environmental-protection",
-    order = "e[sun_heat_cooler_2]",
+    subgroup = "moshine-production-machine",
+    order = "ffj",
     inventory_move_sound = item_sounds.electric_small_inventory_move,
     pick_sound = item_sounds.electric_small_inventory_pickup,
     drop_sound = item_sounds.electric_small_inventory_move,

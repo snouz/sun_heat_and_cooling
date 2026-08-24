@@ -2,7 +2,7 @@ local graphics = "__sun_heat_and_cooling__/graphics/"
 local exemptlist = {
 --"logistic-robot","construction-robot","capture-robot","combat-robot",
 "electric-pole","generator","fusion-generator","burner-generator","electric-energy-interface","boiler","solar-panel","accumulator","power-switch",
-"pipe","pipe-to-ground","heat-pipe","valve","infinity-pipe","pump","offshore-pump","storage-tank",
+"pipe","pipe-to-ground","heat-pipe","valve","infinity-pipe","pump","offshore-pump",
 --"inserter",
 "simple-entity",
 --"character",
@@ -36,7 +36,9 @@ if data.raw.planet["moshine"] then
       priority = "extra-high-no-scale",
       width = 64,
       height = 64,
-      scale = 1,
+      scale = 0.5,
+      shift = {0,-0.7},
+      tint = {1,1,1,0.5},
       flags = {"icon"}
     },
     priority_rules =
@@ -77,6 +79,8 @@ if data.raw.planet["moshine"] then
   for _, proto in pairs(exemptlist) do
     table.insert(data.raw.planet["moshine"].lightning_properties.exemption_rules, {type = "prototype", string = proto})
   end
+
+  
   for _, proto in pairs(data.raw["furnace"]) do
     if proto.name and not (proto.name == "ai-trainer") then
       table.insert(data.raw.planet["moshine"].lightning_properties.exemption_rules, {type = "id", string = proto.name})
@@ -84,6 +88,11 @@ if data.raw.planet["moshine"] then
   end
   for _, proto in pairs(data.raw["mining-drill"]) do
     if proto.name and not (proto.name == "data-extractor") then
+      table.insert(data.raw.planet["moshine"].lightning_properties.exemption_rules, {type = "id", string = proto.name})
+    end
+  end
+  for _, proto in pairs(data.raw["storage-tank"]) do
+    if proto.name and not (proto.name == "opticalfiber-storage-tank") then
       table.insert(data.raw.planet["moshine"].lightning_properties.exemption_rules, {type = "id", string = proto.name})
     end
   end
