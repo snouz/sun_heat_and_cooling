@@ -89,7 +89,7 @@ data:extend({
       amount = 0.15 * (damage/100),
       type = "fire"
     },
-    energy = "10MJ",
+    --energy = "0J",
     time_to_damage = 1,
     effect_duration = 30,
     strike_effect =
@@ -478,7 +478,6 @@ data:extend({
     name = "sun_heat_cooler_2",
     icon = icons .. "sun_heat_cooler_2.png",
     range_elongation = 47.0, -------------------------------------------------------------------------------------RANGE
-    efficiency = 0.5,
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.1, result = "sun_heat_cooler_2"},
     max_health = 200,
@@ -522,15 +521,15 @@ data:extend({
       },
       max_sounds_per_prototype = 3,
     },
-    efficiency = 0.5,
-    energy_source =
+    --efficiency = 0,
+    --[[energy_source =
     {
       type = "electric",
       buffer_capacity = "10MJ",
       usage_priority = "primary-output",
       output_flow_limit = "10MJ",
       drain = "2.5MJ"
-    },
+    },]]
     chargable_graphics = {
       picture = {
         layers = {
