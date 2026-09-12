@@ -89,7 +89,7 @@ data:extend({
       amount = 0.15 * (damage/100),
       type = "fire"
     },
-    --energy = "0J",
+    energy = "0J",
     time_to_damage = 1,
     effect_duration = 30,
     strike_effect =
