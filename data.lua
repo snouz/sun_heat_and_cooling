@@ -86,7 +86,7 @@ data:extend({
     factoriopedia_simulation = sunheatsim,
     damage = 
     {
-      amount = 0.15 * (damage/100),
+      amount = 0.015 * damage,
       type = "fire"
     },
     energy = "0J",
