@@ -11,7 +11,13 @@ script.on_configuration_changed(function()
     initialize_moshine_storage()
 end)
 
-script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity, defines.events.script_raised_built, defines.events.script_raised_revive}, function(event)
+
+local destroy_filters = {
+  {filter = "name", name = "sun_heat_cooler_1" },
+  {filter = "name", name = "sun_heat_cooler_2" },
+}
+
+local function on_entity_created(event)
     local entity = event.entity
     if entity.valid and (entity.name == "sun_heat_cooler_1" or entity.name == "sun_heat_cooler_2") then
         local smoke = nil
@@ -60,9 +66,15 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
             storage.moshine_patch_entities[entity.unit_number] = patch
         end
     end
-end)
+end
 
-script.on_event({defines.events.on_entity_died, defines.events.on_pre_player_mined_item, defines.events.script_raised_destroy, defines.events.on_robot_pre_mined}, function(event)
+script.on_event(defines.events.on_built_entity, on_entity_created, destroy_filters)
+script.on_event(defines.events.on_robot_built_entity, on_entity_created, destroy_filters)
+script.on_event(defines.events.script_raised_built, on_entity_created, destroy_filters)
+script.on_event(defines.events.script_raised_revive, on_entity_created, destroy_filters)
+
+
+local function on_entity_removed(event)
     local entity = event.entity
     if entity.valid then
         if not entity.unit_number then return end
@@ -79,4 +91,14 @@ script.on_event({defines.events.on_entity_died, defines.events.on_pre_player_min
             storage.moshine_patch_entities[entity.unit_number] = nil
         end
     end
-end)
+end
+
+
+script.on_event(defines.events.on_entity_died, on_entity_removed, destroy_filters)
+script.on_event(defines.events.on_pre_player_mined_item, on_entity_removed, destroy_filters)
+script.on_event(defines.events.script_raised_destroy, on_entity_removed, destroy_filters)
+script.on_event(defines.events.on_robot_pre_mined, on_entity_removed, destroy_filters)
+
+
+
+
